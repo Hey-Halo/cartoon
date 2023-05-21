@@ -139,7 +139,6 @@ class App(QWidget):
                 cv.imshow("Video Player", __frame)
                 output.write(__frame)
             else:
-                print("There was a problem with reading the video")
                 break
 
             __quitKey = cv.waitKey(int(1/__fps*1000)) & 0xFF == 27
