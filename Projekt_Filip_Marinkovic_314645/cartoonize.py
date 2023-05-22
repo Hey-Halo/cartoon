@@ -1,5 +1,5 @@
+"""A module containing the cartoonize function"""
 import cv2 as cv
-import numpy as np
 
 
 def cartoonize(image, item):
@@ -19,7 +19,7 @@ def cartoonize(image, item):
         return cv.bitwise_and(edgePreservingImage,
                               edgePreservingImage, mask=edges)
 
-    elif item == "Type 2":
+    if item == "Type 2":
         gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         gray = cv.medianBlur(gray, 7)
         edges = cv.adaptiveThreshold(
@@ -28,14 +28,14 @@ def cartoonize(image, item):
         color = cv.bilateralFilter(image, 12, 250, 250)
         return cv.bitwise_and(color, color, mask=edges)
 
-    elif item == "Type 3":
+    if item == "Type 3":
         return cv.stylization(image, sigma_s=150, sigma_r=0.25)
 
-    elif item == "Pencil sketch 1":
+    if item == "Pencil sketch 1":
         cartoonImage1, cartoonImage2 = cv.pencilSketch(
             image, sigma_s=150, sigma_r=0.2, shade_factor=0.015)
         return cartoonImage1
-    else:
-        cartoonImage1, cartoonImage2 = cv.pencilSketch(
-            image, sigma_s=150, sigma_r=0.2, shade_factor=0.015)
-        return cartoonImage2
+
+    cartoonImage1, cartoonImage2 = cv.pencilSketch(
+        image, sigma_s=150, sigma_r=0.2, shade_factor=0.015)
+    return cartoonImage2
